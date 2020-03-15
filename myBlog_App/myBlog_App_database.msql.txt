@@ -1,0 +1,101 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Feb 27, 2020 at 23:34 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.10
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `myBlog_App_DB`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `T_Posts`
+--
+
+CREATE TABLE `T_Posts` (
+    `Post_ID` INT NOT NULL AUTO_INCREMENT, 
+    `Post_Title` VARCHAR(100) NOT NULL,
+    `Post_Date` DATE NOT NULL,
+    `Post_Preview` VARCHAR(150) NOT NULL,
+    `Post_Body` VARCHAR(3500) NOT NULL,
+    `Post_Img` VARCHAR(150),
+    `Post_Status` INT NOT NULL,
+    `User_ID` INT NOT NULL,
+     PRIMARY KEY(Post_ID),
+
+    FOREIGN KEY (User_ID)
+        REFERENCES T_Users(User_ID)
+
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE `T_Users` (
+    `User_ID` INT NOT NULL AUTO_INCREMENT, 
+    `User_Name` VARCHAR(100) NOT NULL,
+    `User_Password` VARCHAR(12) NOT NULL,
+    `User_FirstName` VARCHAR(50) NOT NULL,
+    `User_LastName`  VARCHAR(50) NOT NULL,
+     PRIMARY KEY(User_ID, User_Name),
+     INDEX (User_Name)
+     
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `T_Posts`
+--
+
+INSERT INTO `T_Posts` (`Post_Title`, `Post_Date`, `Post_Preview`, `Post_Body`, `Post_Img`, `Post_Status`, `User_ID`) VALUES
+('Derek Jeter among 18 newcomers on Hall of Fame ballot', 
+ '2019-11-24', 
+ 'NEW YORK -- Derek Jeter is among 18 newcomers on the 2020 Hall of Fame ballot...', 
+ 'NEW YORK -- Derek Jeter is among 18 newcomers on the 2020 Hall of Fame ballot. He is likely to be an overwhelming choice to join former New York Yankees teammate Mariano Rivera in Cooperstown after the reliever last year became the first unanimous pick by the Baseball Writers Association of America. A 14-time All-Star shortstop and five-time World Series champion, Jeter hit .310 with 3,465 hits in 20 seasons and was the 1996 AL Rookie of the Year. He has been CEO of the Miami Marlins the past two seasons. Other newcomers announced Monday by the BBWAA include Cliff Lee, Josh Beckett, Jason Giambi, Paul Konerko, Rafael Furcal, Bobby Abreu and Alfonso Soriano.', 
+ 'post_img1.jpg',
+ 1,
+ 1
+ ),
+ ('Brian Cashman signals interest in Gerrit Cole, Stephen Strasburg',
+  '2019-11-24',
+  'Aces Gerrit Cole and Stephen Strasburg will be the most sought after pitching free agents this offseason...',
+  'Aces Gerrit Cole and Stephen Strasburg will be the most sought after pitching free agents this offseason, and the New York Yankees will be among the interested teams, general manager Brian Cashman said Monday. Of course, we are going to talk to Strasburg. We will talk to Cole. We will talk to the higher-end guys, clearly, and have conversations, and we will also talk about some surprise guys, I am sure, Cashman told reporters at MLBs annual general manager meetings in Scottsdale, Arizona.',
+  'post_img2.jpg',
+  1,
+  1
+ );
+
+--
+-- Dumping data for table `T_Users`
+--
+INSERT INTO `T_Users` (`User_Name`, `User_Password`, `User_FirstName`, `User_LastName`) VALUES
+('user1@aol.com', 
+ '1234', 
+ 'Jimmy', 
+ 'Fallon'
+ ),
+ ('user2@gmail.com',
+ '5678',
+ 'Jennifer',
+ 'Lawrence'
+ );
+
+-- --------------------------------------------------------
+
+ COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT   */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION   */;
