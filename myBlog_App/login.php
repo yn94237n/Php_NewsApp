@@ -28,7 +28,7 @@
         <div style="padding-top:150px;">
             <h2>Login to your account</h2>
             <div class="panel panel-primary">
-                <div class="panel-heading">The Iformative</div>
+                <div class="panel-heading">The Informative</div>
                 <div class="panel-body">
                     Sign in to your account to add a new post or update an existing one
                     </br></br></br>
