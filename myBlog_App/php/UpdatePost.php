@@ -85,7 +85,7 @@ if(isset($_POST['submit'])){
 
 		//the database will return a true or false. If it's true, then you know the SQL ran okay.
 		if($rs){
-            header("Location: updatePost.php?success=1&postId=" .$postId. "");
+            header("Location: UpdatePost.php?success=1&postId=" .$postId. "");
 			echo(" Record has been Updated. <br/>  ");
 		}else{     //if it did not run OK.Public message:
 			echo'<h1>System Error</h1>
