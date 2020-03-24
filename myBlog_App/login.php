@@ -38,7 +38,8 @@
                     ?>
                         <div align="center">
                             <h1>Welcome - <?php echo $_SESSION["firstname"]; ?> </h1> <br />
-                            <a href="index.php" id="index">Go To Home</a>
+                            <a href="index.php" id="index">Home</a>
+                            &nbsp;
                             <a href="#" id="logout">Logout</a>
                         </div>
                     <?php
