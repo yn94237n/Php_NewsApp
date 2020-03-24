@@ -16,8 +16,7 @@ if(isset($_POST['submit'])){
     #echo("Form Submitted...!<br>");
     #print_r($file);
     
-    
-   //initialize an error array
+    //initialize an error array
    $errors=array();
 
    $postId= trim($_POST['post_id']);
@@ -26,7 +25,7 @@ if(isset($_POST['submit'])){
    //Check for post title
    if(empty(trim($_POST['post_title']))) {
       $errors[]= 'You forgot to enter the post title.';
-      $error_title = 'You forgot to enter the post title red.';
+      $error_title = 'You forgot to enter the post title.';
       $title = trim($_POST['post_title']);
    }else {
       $title = trim($_POST['post_title']);
@@ -64,18 +63,21 @@ if(isset($_POST['submit'])){
 
         if(!empty($_FILES['post_img']['name'])) {
             echo ("Image Uploading");
-            #$file = $_FILES['post_img'];
             $file_name = $_FILES['post_img']['name'];
-            #$file_type = $_FILES['post_img']['type'];
-            #$file_size = $_FILES['post_img']['size'];
             $file_tem_loc = $_FILES['post_img']['tmp_name'];
             $file_store = "../images/".$file_name;
             move_uploaded_file($file_tem_loc, $file_store);
-            #exit();
         }
 
         //set up the SQL statement
-        $sql = "UPDATE `T_Posts` SET Post_Title = '" .$title."', Post_Preview = '" .$preview. "', Post_Body = '".$body."', Post_Status = " .$status. ", Post_Img = '" .$file_name. "' WHERE Post_ID = " .$postId. "";
+        $sql = "UPDATE `T_Posts` SET Post_Title = '" .$title."', Post_Preview = '" .$preview. "', Post_Body = '".$body."', Post_Status = " .$status. "";
+        
+        if (!empty($_FILES['post_img']['name'])) {
+            $sql = $sql . ", Post_Img = '" .$file_name. "'";
+        }
+        
+        $sql = $sql . " WHERE Post_ID = " .$postId. "";
+        
         #echo($sql);
             
         //this will run the SQL statement against your database
@@ -83,7 +85,7 @@ if(isset($_POST['submit'])){
 
 		//the database will return a true or false. If it's true, then you know the SQL ran okay.
 		if($rs){
-            header("Location: updatePost.php?postId=" .$postId. "");
+            header("Location: updatePost.php?success=1&postId=" .$postId. "");
 			echo(" Record has been Updated. <br/>  ");
 		}else{     //if it did not run OK.Public message:
 			echo'<h1>System Error</h1>
@@ -93,6 +95,8 @@ if(isset($_POST['submit'])){
 			</p>';
         }
         
+    } else {
+        $insertResult = '';
     }
 }
 else {
@@ -112,6 +116,19 @@ else {
     $body = $row["Post_Body"];
     $status = $row["Post_Status"];
     $imgName = $row["Post_Img"];
+
+    if(isset($_GET["success"])) {
+        $success = $_GET["success"];
+    } else {
+        $success = 0;
+    }
+
+    if($success == 1) {
+        $insertResult = ' The post has been updated successfully ';
+    } else {
+        $insertResult = '';
+    }
+
 }
 
 ?>
@@ -161,7 +178,7 @@ else {
                                 <div class="col s12">
                                     <h5>
                                         <i class="small material-icons">mode_edit</i>
-                                        &nbsp;Update Post
+                                        &nbsp;Update Post <span class="successMsg"><?php echo($insertResult); ?></span>
                                     </h5>
                                     <p>
                                         <br>

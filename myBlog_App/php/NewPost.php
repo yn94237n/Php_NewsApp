@@ -7,6 +7,10 @@ include('../include/connection.inc');
 include('../include/MyLibrary.php');
     
 $postDate = todaysDate();
+$title = '';
+$status = '';
+$preview = '';
+$body = '';
     
 ?>
 <?php
@@ -78,7 +82,7 @@ if(isset($_POST['submit'])){
 
         //set up the SQL statement
         $sql = "INSERT INTO `T_Posts` (Post_Title, Post_Date, Post_Preview, Post_Body, Post_Status, Post_Img, User_ID) VALUES ('" .$title. "','" .$postDate. "','" .$preview. "','" .$body. "'," .$status. ", '" .$file_name. "'," .$_SESSION["userid"].")";
-        echo($sql);
+        #echo($sql);
         #exit();
         #die();
             
@@ -177,7 +181,7 @@ else {
                                     <div class="row">                                        
                                         <div class="input-field col s12">
                                             <label for="post_title">Title</label>
-                                            <input id="post_title" name="post_title" type="text" class="validate flow-text" value="">
+                                            <input id="post_title" name="post_title" type="text" class="validate flow-text" value="<?php echo($title); ?>">
                                             <span class="error"><?php echo($error_title); ?></span>
                                         </div>
                                     </div>
@@ -190,14 +194,14 @@ else {
                                     <div class="row">-->
                                         <div class="input-field col s10">
                                             <label for="post_preview">Preview</label>
-                                            <input id="post_preview" name="post_preview" type="text" class="validate flow-text" value="">
+                                            <input id="post_preview" name="post_preview" type="text" class="validate flow-text" value="<?php echo($preview); ?>">
                                             <span class="error"><?php echo($error_preview); ?></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <label for="post_body">Body</label>
-                                            <textarea id="post_body" name="post_body" class="materialize-textarea flow-text">  </textarea>
+                                            <textarea id="post_body" name="post_body" class="materialize-textarea flow-text"> <?php echo($body); ?> </textarea>
                                             <span class="error"><?php echo($error_body); ?></span>
                                         </div>
                                     </div>
@@ -218,7 +222,7 @@ else {
                                     <div class="row">
                                         <div class="input-field col s12">
                                         <label>
-                                            <input name="post_status" type="checkbox" class="filled-in" />
+                                            <input name="post_status" type="checkbox" class="filled-in" <?php if($status == 1) { echo("checked='checked'"); } ?> />
                                             <span>Post Active</span>
                                         </label>
                                         </div>
